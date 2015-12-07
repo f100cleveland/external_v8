@@ -806,12 +806,6 @@
                 'cflags': [ '-m32' ],
                 'ldflags': [ '-m32' ],
               }],
-              # Enable feedback-directed optimisation when building in android.
-              [ 'android_webview_build == 1', {
-                'aosp_build_settings': {
-                  'LOCAL_FDO_SUPPORT': 'true',
-                },
-              }],
             ],
             'xcode_settings': {
               'ARCHS': [ 'i386' ],
@@ -835,12 +829,6 @@
                ['target_cxx_is_biarch==1', {
                  'cflags': [ '-m64' ],
                  'ldflags': [ '-m64' ],
-               }],
-               # Enable feedback-directed optimisation when building in android.
-               [ 'android_webview_build == 1', {
-                 'aosp_build_settings': {
-                   'LOCAL_FDO_SUPPORT': 'true',
-                 },
                }],
              ]
            }],
