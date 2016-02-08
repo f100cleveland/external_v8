@@ -98,10 +98,11 @@ LOCAL_CFLAGS += \
 	-DENABLE_VMSTATE_TRACKING \
 	-DV8_NATIVE_REGEXP \
 	-Wno-unused-parameter \
-	-std=gnu++0x
+	-std=gnu++0x \
+	-Wno-inconsistent-missing-override
 
-LOCAL_CFLAGS_arm += -DV8_TARGET_ARCH_ARM
-LOCAL_CFLAGS_arm64 += -DV8_TARGET_ARCH_ARM64
+LOCAL_CFLAGS_arm += -DV8_TARGET_ARCH_ARM -Wno-inconsistent-missing-override
+LOCAL_CFLAGS_arm64 += -DV8_TARGET_ARCH_ARM64 -Wno-inconsistent-missing-override
 
 # atomicops_internals_arm64_gcc.h:77:49: error:
 # expected compatible register, symbol or integer in range [0, 4095]
@@ -118,6 +119,8 @@ LOCAL_CFLAGS_mips64 += -DV8_TARGET_ARCH_MIPS64 \
 
 LOCAL_CFLAGS_x86 += -DV8_TARGET_ARCH_IA32
 LOCAL_CFLAGS_x86_64 += -DV8_TARGET_ARCH_X64
+
+DEBUG_V8 := false
 
 ifeq ($(DEBUG_V8),true)
 	LOCAL_CFLAGS += -DDEBUG -UNDEBUG

@@ -78,10 +78,11 @@ LOCAL_CFLAGS := \
 	-DV8_NATIVE_REGEXP \
 	-DV8_LIBRT_NOT_AVAILABLE \
 	-Wno-unused-parameter \
-	-std=gnu++0x
+	-std=gnu++0x \
+	-Wno-inconsistent-missing-override
 
-LOCAL_CFLAGS_v8_target_arm := -DV8_TARGET_ARCH_ARM -O0
-LOCAL_CFLAGS_v8_target_arm64 := -DV8_TARGET_ARCH_ARM64
+LOCAL_CFLAGS_v8_target_arm := -DV8_TARGET_ARCH_ARM -O0 -Wno-inconsistent-missing-override
+LOCAL_CFLAGS_v8_target_arm64 := -DV8_TARGET_ARCH_ARM64 -Wno-inconsistent-missing-override
 
 ifeq ($(ARCH_ARM_HAVE_VFP),true)
     LOCAL_CFLAGS_v8_target_arm += -DCAN_USE_VFP_INSTRUCTIONS -DCAN_USE_ARMV7_INSTRUCTIONS
@@ -101,6 +102,8 @@ LOCAL_CFLAGS_v8_target_mips64 := -DV8_TARGET_ARCH_MIPS64 \
 LOCAL_CFLAGS_v8_target_x86 := -DV8_TARGET_ARCH_IA32
 LOCAL_CFLAGS_v8_target_x86_64 := -DV8_TARGET_ARCH_X64
 
+DEBUG_V8 := false
+
 ifeq ($(DEBUG_V8),true)
 	LOCAL_CFLAGS += -DDEBUG -UNDEBUG
 endif
@@ -108,7 +111,7 @@ endif
 # LOCAL_SRC_FILES_arch only applies to target modules, but we want them
 # for a host module, so append them manually
 LOCAL_SRC_FILES += $(v8_local_src_files_$(mksnapshot_arch))
-LOCAL_CFLAGS += $(LOCAL_CFLAGS_v8_target_$(mksnapshot_arch))
+LOCAL_CFLAGS += $(LOCAL_CFLAGS_v8_target_$(mksnapshot_arch)) -Wno-inconsistent-missing-override
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/src
 
